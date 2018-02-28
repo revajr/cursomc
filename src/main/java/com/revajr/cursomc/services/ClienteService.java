@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.revajr.cursomc.dominio.Cliente;
-import com.revajr.cursomc.dominio.Cliente;
 import com.revajr.cursomc.dto.ClienteDTO;
 import com.revajr.cursomc.repositories.ClienteRepository;
 import com.revajr.cursomc.services.exceptions.DataIntegrityException;
