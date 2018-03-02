@@ -21,12 +21,13 @@ import com.revajr.cursomc.dominio.enums.TipoCliente;
 public class Cliente implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
-	private String cpfcnpj;
+	private String cpfOuCnpj;
 	private Integer tipo;
 	
 //	@JsonManagedReference
@@ -45,12 +46,12 @@ public class Cliente implements Serializable{
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfcnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpfcnpj = cpfcnpj;
+		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
@@ -78,12 +79,12 @@ public class Cliente implements Serializable{
 		this.email = email;
 	}
 
-	public String getCpfcnpj() {
-		return cpfcnpj;
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
 	}
 
-	public void setCpfcnpj(String cpfcnpj) {
-		this.cpfcnpj = cpfcnpj;
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
 	public TipoCliente getTipo() {
