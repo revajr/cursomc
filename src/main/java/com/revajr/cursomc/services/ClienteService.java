@@ -2,8 +2,6 @@ package com.revajr.cursomc.services;
 
 import java.util.List;
 
-import javax.xml.stream.events.EndElement;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -83,7 +81,7 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteNewDTO objDTO) {
 		
-		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfcnpj(), TipoCliente.toEnum(objDTO.getTipo()));
+		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()));
 		Cidade cid = cidadeRepository.findOne(objDTO.getCidadeID());
 		Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), objDTO.getCep(), cli, cid);
 		cli.getEnderecos().add(end);
