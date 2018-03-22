@@ -11,6 +11,7 @@ import com.revajr.cursomc.dominio.ItemPedido;
 import com.revajr.cursomc.dominio.PagamentoComBoleto;
 import com.revajr.cursomc.dominio.Pedido;
 import com.revajr.cursomc.dominio.enums.EstadoPagamento;
+import com.revajr.cursomc.repositories.ClienteRepository;
 import com.revajr.cursomc.repositories.ItemPedidoRepository;
 import com.revajr.cursomc.repositories.PagamentoRepository;
 import com.revajr.cursomc.repositories.PedidoRepository;
@@ -35,6 +36,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	public Pedido find(Integer id) {
 		Pedido obj = repo.findOne(id);
 		
@@ -49,9 +53,11 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
+		
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
-		
+				
 		if (obj.getPagamento() instanceof PagamentoComBoleto) {
 			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
 			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
@@ -62,10 +68,12 @@ public class PedidoService {
 		
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoRepository.findOne(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.save(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	
 	}
