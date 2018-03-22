@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.revajr.cursomc.services.DBService;
+import com.revajr.cursomc.services.EmailService;
+import com.revajr.cursomc.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -29,5 +31,14 @@ public class DevConfig {
 		}
 		dbService.instantiateTestDatabase();
 		return true;
+	}
+	
+	
+	/*
+	 * Qndo rodar em DEV, vai instanciar um SmtpEmailService, e não um MockEmailService
+	 */
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 }
