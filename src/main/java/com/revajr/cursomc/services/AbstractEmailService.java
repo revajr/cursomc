@@ -55,7 +55,7 @@ public abstract class AbstractEmailService implements EmailService{
 		try {
 			MimeMessage mm = prepareMimeMessageFromPedido(obj);
 			sendHtmlEmail(mm);	
-		} catch (MessagingException e) {
+		}catch (MessagingException e) {
 			sendOrderConfirmationEmail(obj);
 		}
 		
