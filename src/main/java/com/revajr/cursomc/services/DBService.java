@@ -20,6 +20,7 @@ import com.revajr.cursomc.dominio.PagamentoComCartao;
 import com.revajr.cursomc.dominio.Pedido;
 import com.revajr.cursomc.dominio.Produto;
 import com.revajr.cursomc.dominio.enums.EstadoPagamento;
+import com.revajr.cursomc.dominio.enums.Perfil;
 import com.revajr.cursomc.dominio.enums.TipoCliente;
 import com.revajr.cursomc.repositories.CategoriaRepository;
 import com.revajr.cursomc.repositories.CidadeRepository;
@@ -120,13 +121,21 @@ public class DBService {
 		cidadeRepository.save(Arrays.asList(cid1,cid2,cid3));
 		
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "revajr@gmail.com", "9999999999", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		Cliente cli1 = new Cliente(null, "Maria Silva", "revajr@hotmail.com", "9999999999", TipoCliente.PESSOAFISICA, pe.encode("12345"));
 		cli1.getTelefones().addAll(Arrays.asList("123456789","999888777"));
 		Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "7005060", cli1, cid1);
 		Endereco end2 = new Endereco(null, "AvenidaMatos", "105", "Sala 800", "Centro", "650555444", cli1, cid2);
 		cli1.getEnderecos().addAll(Arrays.asList(end1,end2));
 		
-		clienteRepository.save(Arrays.asList(cli1));
+		Cliente cli2 = new Cliente(null, "Revailton", "revajr@gmail.com", "9999999999", TipoCliente.PESSOAFISICA, pe.encode("12345"));
+		cli2.addPerfil(Perfil.ADMIN);
+		cli2.getTelefones().addAll(Arrays.asList("123456789","999888777"));
+		Endereco end3 = new Endereco(null, "AvenidaMatos", "105", "Sala 800", "Centro", "650555444", cli2, cid2);
+		cli2.getEnderecos().addAll(Arrays.asList(end3));
+		
+		
+		
+		clienteRepository.save(Arrays.asList(cli1, cli2));
 		enderecoRepository.save(Arrays.asList(end1,end2));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
