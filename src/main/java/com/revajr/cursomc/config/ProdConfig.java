@@ -13,8 +13,8 @@ import com.revajr.cursomc.services.EmailService;
 import com.revajr.cursomc.services.SmtpEmailService;
 
 @Configuration
-@Profile("dev")
-public class DevConfig {
+@Profile("prod")
+public class ProdConfig {
 	
 	@Autowired
 	private DBService dbService;
@@ -32,8 +32,9 @@ public class DevConfig {
 	}
 	
 	/*
-	 * Qndo rodar em DEV, vai instanciar um SmtpEmailService, e não um MockEmailService
+	 * Qndo rodar em DEV e PROD, vai instanciar um SmtpEmailService, e não um MockEmailService
 	 */
+	
 	@Bean
 	public EmailService emailService() {
 		return new SmtpEmailService();
